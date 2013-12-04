@@ -61,9 +61,13 @@ GEM
     minitest (4.7.5)
     multi_json (1.8.2)
     multi_xml (0.5.5)
+    oauth (0.4.7)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
     omniauth-withings (1.0.3)
       multi_xml
       omniauth (~> 1.0)
@@ -131,6 +135,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   omniauth
+  omniauth-oauth
   omniauth-withings
   rails (= 4.0.0)
   sass-rails (~> 4.0.0)

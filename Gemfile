@@ -34,6 +34,7 @@ end
 
 gem 'devise'
 gem 'omniauth'
+gem 'omniauth-oauth'
 gem 'omniauth-withings'
 
 # Use ActiveModel has_secure_password
