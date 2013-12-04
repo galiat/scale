@@ -33,7 +33,7 @@ group :doc do
 end
 
 gem 'devise'
-gem 'devise-omniauth'
+gem 'omniauth'
 gem 'omniauth-withings'
 
 # Use ActiveModel has_secure_password
