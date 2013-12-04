@@ -6,14 +6,15 @@ class User < ActiveRecord::Base
   omniauth_providers: [:withings]
   
   def self.find_for_withings_oauth(auth, signed_in_resource=nil)
+    logger.debug auth.to_s 
     user = User.where(provider: auth.provider, uid: auth.uid).first
     unless user
-      user = User.create(name: auth.extra.raw_info.name,
+      user = User.create(name: auth.uid,
                          provider: auth.provider,
                          uid: auth.uid,
-                         email: auth.info.email,
-                         password: Devise.friendly_token[0,20]
-                         )
+                         email: 'string@mail.com',
+                         password: Devise.friendly_token[0,20])
+
     end
   end
 end
