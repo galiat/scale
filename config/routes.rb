@@ -7,5 +7,5 @@ Scale::Application.routes.draw do
 
   resources :movements, only: 'index'
 
-  root to: 'home#index'
+  root to: 'movements#index'
 end

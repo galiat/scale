@@ -1,1 +1,26 @@
 <h1>Movements</h1>
+<%- if @movements.nil? %>
+  No movements.
+  <%- if current_user.nil? %>
+    Maybe you should sign in.
+  <%- end %>
+<%- else %>
+  <table>
+    <th>When</th>
+    <th>Weight (LB)</th>
+    <th>Duration (seconds)</th>
+    <%- @movements.each do |movement| %>
+      <tr>
+        <td>
+          <%= movement.happened_at%>
+        </td>
+        <td>
+          <%= movement.weight_pounds%>
+        </td>
+        <td>
+          <%= movement.duration%>
+        </td>
+      </tr>
+    <%- end %>
+  </table>
+<%- end%>

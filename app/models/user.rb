@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
                          secret: auth.credentials.secret,
                          key: auth.credentials.token)
     else
+      #unfortunately these change each time the user authenticates
+      user.update(secret: auth.credentials.secret, key: auth.credentials.token)
       user
     end
   end
