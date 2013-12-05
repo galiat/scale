@@ -7,21 +7,21 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
 
-      Withings.consumer_key = ENV['WITHINGS_APP_ID']
-      Withings.consumer_secret =  ENV['WITHINGS_APP_SECRET']
+      # Withings.consumer_key = ENV['WITHINGS_APP_ID']
+      # Withings.consumer_secret =  ENV['WITHINGS_APP_SECRET']
 
-      wi_user = Withings::User.authenticate(@user.uid, @user.key, @user.secret)
-      measurement_groups = wi_user.measurement_groups(:device => Withings::SCALE, :per_page => 1000)
-      measurement_groups.each{|m| Measurement.create(user_id: @user.id, weight: m.weight, taken_at:m.taken_at)}
+      # wi_user = Withings::User.authenticate(@user.uid, @user.key, @user.secret)
+      # measurement_groups = wi_user.measurement_groups(:device => Withings::SCALE, :per_page => 1000)
+      # measurement_groups.each{|m| Measurement.create(user_id: @user.id, weight: m.weight, taken_at:m.taken_at)}
 
-      #measurements are returned with the most recent having an index of 0
-      @user.measurements.each_with_index do |after_measurement,i|
-        before_measurement = @user.measurements[i+1]
-        movement = Movement.new before_measurement: before_measurement, after_measurement: after_measurement
-        if movement.valid?
-          movement.save #TODO handle if save fails
-        end
-      end
+      # #measurements are returned with the most recent having an index of 0
+      # @user.measurements.each_with_index do |after_measurement,i|
+      #   before_measurement = @user.measurements[i+1]
+      #   movement = Movement.new before_measurement: before_measurement, after_measurement: after_measurement
+      #   if movement.valid?
+      #     movement.save #TODO handle if save fails
+      #   end
+      # end
 
       set_flash_message(:notice, :success, :kind => "Withings") if is_navigational_format?
     else

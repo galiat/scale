@@ -1,29 +1,23 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
-  omniauth_providers: [:withings]
+  devise :rememberable, :omniauthable, omniauth_providers: [:withings]
+
   has_many :measurements
 
-
   def self.find_for_withings_oauth(auth, signed_in_resource=nil)
-    logger.debug auth.to_s
     user = User.where(provider: auth.provider, uid: auth.uid).first
-    unless user
+    if user.nil?
       user = User.create(name: auth.uid,
                          provider: auth.provider,
                          uid: auth.uid,
-                         email: 'string@mail.com',
                          secret: auth.credentials.secret,
-                         key: auth.credentials.token,
-                         password: Devise.friendly_token[0,20])
-
+                         key: auth.credentials.token)
+    else
+      user
     end
   end
 
   def movements
-    Movement.all.keep_if{|m| m.start_measurement.user_id == id}
+    Movement.all.keep_if{|m| m.before_measurement.user_id == id}
   end
 
 end
