@@ -37,6 +37,9 @@ gem 'omniauth'
 gem 'omniauth-oauth'
 gem 'omniauth-withings'
 
+
+gem  'simplificator-withings'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -47,4 +50,4 @@ gem 'omniauth-withings'
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'debugger', group: [:development, :test]

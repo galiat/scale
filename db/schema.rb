@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204020556) do
+ActiveRecord::Schema.define(version: 20131205013710) do
+
+  create_table "measurements", force: true do |t|
+    t.integer  "user_id"
+    t.float    "weight"
+    t.datetime "taken_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "movements", force: true do |t|
+    t.integer  "start_measurement_id"
+    t.integer  "end_measurement_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

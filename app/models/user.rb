@@ -4,9 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
   omniauth_providers: [:withings]
-  
+  has_many :measurements
+
   def self.find_for_withings_oauth(auth, signed_in_resource=nil)
-    logger.debug auth.to_s 
+    logger.debug auth.to_s
     user = User.where(provider: auth.provider, uid: auth.uid).first
     unless user
       user = User.create(name: auth.uid,
@@ -19,4 +20,9 @@ class User < ActiveRecord::Base
 
     end
   end
+
+  def find_movements
+    #measurements.each_with_index()
+  end
+
 end
