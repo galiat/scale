@@ -1,17 +1,17 @@
 class Movement < ActiveRecord::Base
-  belongs_to :start_measurement, class_name: 'Measurement'
-  belongs_to :end_measurement, class_name: 'Measurement'
+  belongs_to :before_measurement, class_name: 'Measurement'
+  belongs_to :after_measurement, class_name: 'Measurement'
 
   def happened_at
-    start_measurement.taken_at
+    before_measurement.taken_at
   end
 
   def duration
-    end_measurement.taken_at - start_measurement.taken_at
+    after_measurement.taken_at - before_measurement.taken_at
   end
 
   def weight
-    start_measurement.weight - end_measurement.weight
+    before_measurement.weight - after_measurement.weight
   end
 
   def weight_pounds

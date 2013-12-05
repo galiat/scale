@@ -10,12 +10,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       Withings.consumer_key = ENV['WITHINGS_APP_ID']
       Withings.consumer_secret =  ENV['WITHINGS_APP_SECRET']
       wi_user = Withings::User.authenticate(@user.uid, @user.key, @user.secret)
-      ms = wi_user.measurement_groups(:device => Withings::SCALE)
+      ms = wi_user.measurement_groups(:device => Withings::SCALE, :limit => 1000)
       ms.each{|m| Measurement.create(user_id: @user.id, weight: m.weight, taken_at:m.taken_at)}
       @user.measurements.each_with_index do |m_after,i|
         m_before = @user.measurements[i+1]
         if Movement.is_movement(m_before, m_after)
-          Movement.create(start_measurement_id: m_before.id, end_measurement_id: m_after.id)
+          Movement.create(before_measurement_id: m_before.id, after_measurement_id: m_after.id)
         end
       end
       set_flash_message(:notice, :success, :kind => "Withings") if is_navigational_format?

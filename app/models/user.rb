@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   omniauth_providers: [:withings]
   has_many :measurements
 
+
   def self.find_for_withings_oauth(auth, signed_in_resource=nil)
     logger.debug auth.to_s
     user = User.where(provider: auth.provider, uid: auth.uid).first
@@ -21,8 +22,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def find_movements
-    #measurements.each_with_index()
+  def movements
+    Movement.all.keep_if{|m| m.start_measurement.user_id == id}
   end
 
 end

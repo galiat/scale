@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20131205013710) do
   end
 
   create_table "movements", force: true do |t|
-    t.integer  "start_measurement_id"
-    t.integer  "end_measurement_id"
+    t.integer  "before_measurement_id"
+    t.integer  "after_measurement_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
