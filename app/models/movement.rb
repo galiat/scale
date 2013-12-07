@@ -33,26 +33,28 @@ class Movement < ActiveRecord::Base
 private
 
   def same_user
-    if measurements_present && before_measurement.user_id != after_measurement.user_id
+    if measurements_present? && before_measurement.user_id != after_measurement.user_id
        errors.add :base, 'Users must be the same.'
     end
   end
 
   def time_range
-    if measurements_present && after_measurement.taken_at < before_measurement.taken_at
+    if measurements_present? && after_measurement.taken_at < before_measurement.taken_at
        errors.add :base, 'before_measurement must be taken before the after_measurement.'
-    elsif measurements_present && after_measurement.taken_at - before_measurement.taken_at >= 10.minutes #TODO externalize 10
+    elsif measurements_present? && duration >= 10.minutes #TODO externalize 10
        errors.add :base, 'Measurements must be less than 10 minutes apart.'
+    elsif duration < 30.seconds
+      errors.add :base, 'That was fast! Measurements must be more than 30 seconds apart.'
     end
   end
 
   def weight_decrease
-    if measurements_present && before_measurement.weight < after_measurement.weight
-      errors.add :base, 'Weight cannot increase.'
+    if measurements_present && before_measurement.weight <= after_measurement.weight
+      errors.add :base, 'Weight should decrease.'
     end
   end
 
-  def measurements_present #TODO ideally, I'd like to say run presence validations. If those pass, run these.
+  def measurements_present? #TODO ideally, I'd like to say run presence validations. If those pass, run these.
     before_measurement && after_measurement
   end
 
