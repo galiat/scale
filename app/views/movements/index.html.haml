@@ -1,0 +1,19 @@
+%h1 All Movements
+- if @movements.nil?
+  No movements.
+- else
+  %table
+    %th User
+    %th When
+    %th Weight (LB)
+    %th Duration (seconds)
+    - @movements.each do |movement|
+      %tr
+        %td
+          = movement.user.name
+        %td
+          = movement.happened_at
+        %td
+          = movement.weight_pounds
+        %td
+          = movement.duration

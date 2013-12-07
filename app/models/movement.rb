@@ -24,6 +24,10 @@ class Movement < ActiveRecord::Base
     weight * 2.20462
   end
 
+  def user
+    before_measurement.user
+  end
+
 private
 
   def same_user

@@ -1,0 +1,18 @@
+%h1 Movements for User #{@user.name}
+- if @movements.nil?
+  No movements.
+  - if current_user.nil?
+    Maybe you should sign in.
+- else
+  %table
+    %th When
+    %th Weight (LB)
+    %th Duration (seconds)
+    - @movements.each do |movement|
+      %tr
+        %td
+          = movement.happened_at
+        %td
+          = movement.weight_pounds
+        %td
+          = movement.duration

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @movements = User.find(params[:id]).movements
+    @user = User.find params[:id]
+    @movements = @user.movements
   end
 end
