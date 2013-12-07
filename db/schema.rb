@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131207005022) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "measurements", force: true do |t|
     t.integer  "user_id"
     t.float    "weight"
@@ -34,7 +37,6 @@ ActiveRecord::Schema.define(version: 20131207005022) do
     t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
-    t.string   "name"
     t.string   "secret"
     t.string   "key"
     t.string   "first_name"
