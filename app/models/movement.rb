@@ -8,6 +8,8 @@ class Movement < ActiveRecord::Base
   validate :time_range
   validate :weight_decrease
 
+  default_scope joins(:before_measurement).order('taken_at DESC')
+
   def happened_at
     before_measurement.taken_at
   end

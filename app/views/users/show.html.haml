@@ -11,8 +11,8 @@
     - @movements.each do |movement|
       %tr
         %td
-          = movement.happened_at
+          = movement.happened_at.to_s(:long)
         %td
-          = movement.weight_pounds
+          = movement.weight_pounds.round(2)
         %td
           = movement.duration
