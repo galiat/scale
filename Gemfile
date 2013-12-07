@@ -28,7 +28,9 @@ gem 'omniauth'
 gem 'omniauth-oauth'
 gem 'omniauth-withings'
 
-gem  'simplificator-withings'
+gem 'simplificator-withings', require: 'withings'
+
+gem 'dotenv-rails'
 
 # Use debugger
-gem 'debugger', group: [:development, :test]
+gem 'byebug', group: [:development, :test]

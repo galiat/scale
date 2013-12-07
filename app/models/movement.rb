@@ -1,6 +1,7 @@
 class Movement < ActiveRecord::Base
   belongs_to :before_measurement, class_name: 'Measurement'
   belongs_to :after_measurement, class_name: 'Measurement'
+  has_one :user, through: :before_measurement
 
   validates :before_measurement, presence: true
   validates :after_measurement, presence: true
@@ -15,22 +16,18 @@ class Movement < ActiveRecord::Base
   end
 
   def duration
-    after_measurement.taken_at - before_measurement.taken_at
+    @duration ||= after_measurement.taken_at - before_measurement.taken_at
   end
 
   def weight
-    before_measurement.weight - after_measurement.weight
+    @weight ||= before_measurement.weight - after_measurement.weight
   end
 
   def weight_pounds
-    weight * 2.20462
+    @weight_pounds ||= weight * 2.20462
   end
 
-  def user
-    before_measurement.user
-  end
-
-private
+  private
 
   def same_user
     if measurements_present? && before_measurement.user_id != after_measurement.user_id
@@ -49,13 +46,13 @@ private
   end
 
   def weight_decrease
-    if measurements_present && before_measurement.weight <= after_measurement.weight
+    if measurements_present? && before_measurement.weight <= after_measurement.weight
       errors.add :base, 'Weight should decrease.'
     end
   end
 
   def measurements_present? #TODO ideally, I'd like to say run presence validations. If those pass, run these.
-    before_measurement && after_measurement
+    @measurements_present ||= before_measurement && after_measurement
   end
 
 end
