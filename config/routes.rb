@@ -4,7 +4,7 @@ Scale::Application.routes.draw do
     # Create our own sign out route pointing to devise's controller.
     delete "/users/sign_out" => "devise/sessions#destroy"
   end
-
+  resources :users, only: 'show'
   resources :movements, only: 'index'
 
   root to: 'movements#index'
