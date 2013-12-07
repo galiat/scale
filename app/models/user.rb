@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   def self.find_for_withings_oauth(auth, signed_in_resource=nil)
     user = User.where(provider: auth.provider, uid: auth.uid).first
     if user.nil?
-      user = User.create(name: auth.uid,
+      user = User.create(
                          provider: auth.provider,
                          uid: auth.uid,
                          secret: auth.credentials.secret,

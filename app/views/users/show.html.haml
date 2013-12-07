@@ -1,4 +1,4 @@
-%h1 Movements for User #{@user.name}
+%h1 Movements for #{@user.first_name}
 - if @movements.nil?
   No movements.
   - if current_user.nil?
@@ -6,7 +6,7 @@
 - else
   %table
     %th When
-    %th Weight (LB)
+    %th Weight (lb)
     %th Duration (seconds)
     - @movements.each do |movement|
       %tr

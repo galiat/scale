@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205013710) do
+ActiveRecord::Schema.define(version: 20131207005022) do
 
   create_table "measurements", force: true do |t|
     t.integer  "user_id"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20131205013710) do
     t.string   "name"
     t.string   "secret"
     t.string   "key"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end
