@@ -4,6 +4,16 @@
   - if current_user.nil?
     Maybe you should sign in.
 - else
+  .aggregate
+    .metric
+      .label Most common time of day
+      .value Unknown
+    .metric
+      .label Average weight
+      .value #{@user.average_weight_pounds.round(2)} pounds
+    .metric
+      .label Average duration
+      .value #{@user.average_duration.round} seconds
   %table
     %th When
     %th Weight (lb)
@@ -15,4 +25,4 @@
         %td
           = movement.weight_pounds.round(2)
         %td
-          = movement.duration
+          = movement.duration.round

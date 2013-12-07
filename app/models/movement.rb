@@ -24,8 +24,13 @@ class Movement < ActiveRecord::Base
   end
 
   def weight_pounds
-    @weight_pounds ||= weight * 2.20462
+    @weight_pounds ||= weight * 2.20462 #TODO externize convertions
   end
+
+  #TODO
+  #def mode_time_of_day
+  #end
+
 
   private
 

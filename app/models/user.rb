@@ -3,6 +3,22 @@ class User < ActiveRecord::Base
 
   has_many :measurements
 
+  def average_weight
+    movements.map{|m| m.weight}.sum / movements.count
+  end
+
+  def average_weight_pounds
+    average_weight * 2.20462 #TODO externize convertions
+  end
+
+  def average_duration
+    movements.map{|m| m.duration}.sum / movements.count
+  end
+
+  #TODO ['Morning', 'Day?','Afternoon', 'Evening', 'Late Night', 'Witching Hour']
+  #def mode_time_of_day
+  #end
+
   def collect_movements
      Measurement.collect_most_recent_measurements_for self
      index_movements

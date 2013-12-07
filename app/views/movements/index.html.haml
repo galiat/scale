@@ -12,8 +12,8 @@
         %td
           = movement.user.first_name
         %td
-          = movement.happened_at.to_s(:long)
+          = movement.happened_at.to_s :long
         %td
-          = movement.weight_pounds.round(2)
+          = movement.weight_pounds.round 2
         %td
-          = movement.duration
+          = movement.duration.round
