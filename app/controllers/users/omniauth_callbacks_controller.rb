@@ -11,6 +11,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       Withings.consumer_secret =  ENV['WITHINGS_APP_SECRET']
 
       wi_user = Withings::User.authenticate(@user.uid, @user.key, @user.secret)
+      @user.first_name = wi_user.first_name
+      @user.last_name = wi_user.last_name
+      @user.save
+
       measurement_groups = wi_user.measurement_groups(:device => Withings::SCALE, :per_page => 1000)
       measurement_groups.each{|m| Measurement.where(user_id: @user.id, weight: m.weight, taken_at:m.taken_at).first_or_create}
 
