@@ -8,7 +8,7 @@
     %th Weight (LB)
     %th Duration (seconds)
     - @movements.each do |movement|
-      %tr
+      %tr{class: ('verified' if movement.verified?)}
         %td
           = movement.user.first_name
         %td

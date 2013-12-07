@@ -19,7 +19,7 @@
     %th Weight (lb)
     %th Duration (seconds)
     - @movements.each do |movement|
-      %tr
+      %tr{class: ('verified' if movement.verified?)}
         %td
           = movement.happened_at.to_s(:long)
         %td
