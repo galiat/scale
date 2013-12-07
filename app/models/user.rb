@@ -12,12 +12,14 @@ class User < ActiveRecord::Base
     # measurements are returned with the most recent having an index of 0
     measurements.each_with_index do |after_measurement, i|
       before_measurement = measurements[i+1]
-      Movement.find_or_create_by before_measurement: before_measurement, after_measurement: after_measurement
+
+      #TODO why .try ?
+      Movement.find_or_create_by before_measurement_id: before_measurement.try(:id), after_measurement: after_measurement
     end
   end
 
   def movements
-    Movement.all.keep_if{|m| m.before_measurement.user_id == id}
+    @movements ||= Movement.all.keep_if{|m| m.user.id == id}
   end
 
   def withings_user
@@ -25,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def set_withings_credentials(secret, token)
-    assign_attributes secret: auth.credentials.secret, key: auth.credentials.token
+    assign_attributes secret: secret, key: token
   end
 
   def self.find_or_create_by_oauth(auth)

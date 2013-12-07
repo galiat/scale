@@ -40,7 +40,7 @@ class Movement < ActiveRecord::Base
        errors.add :base, 'before_measurement must be taken before the after_measurement.'
     elsif measurements_present? && duration >= 10.minutes #TODO externalize 10
        errors.add :base, 'Measurements must be less than 10 minutes apart.'
-    elsif duration < 30.seconds
+    elsif measurements_present? && duration < 30.seconds
       errors.add :base, 'That was fast! Measurements must be more than 30 seconds apart.'
     end
   end
